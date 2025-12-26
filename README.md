@@ -1,308 +1,117 @@
-# Next AI Draw.io
 
-<div align="center">
+## Next AI Draw NAS
 
-**AI-Powered Diagram Creation Tool - Chat, Draw, Visualize**
+**Next AI Draw NAS** 是基于开源项目 **[Next AI Draw.io](https://github.com/DayuanJiang/next-ai-draw-io)** 的二次开发版本（Fork / Extended Edition），在完整继承原项目设计理念与核心能力的基础上，重点面向 **私有化部署、内网环境和定制化场景** 进行了增强与优化。
 
-English | [中文](./docs/README_CN.md) | [日本語](./docs/README_JA.md)
-
-[![TrendShift](https://trendshift.io/api/badge/repositories/15449)](https://next-ai-drawio.jiang.jp/)
-
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Next.js](https://img.shields.io/badge/Next.js-16.x-black)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.x-61dafb)](https://react.dev/)
-[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa)](https://github.com/sponsors/DayuanJiang)
-
-[![Live Demo](./public/live-demo-button.svg)](https://next-ai-drawio.jiang.jp/)
-
-</div>
-
-A Next.js web application that integrates AI capabilities with draw.io diagrams. Create, modify, and enhance diagrams through natural language commands and AI-assisted visualization.
-
-
-
-https://github.com/user-attachments/assets/9d60a3e8-4a1c-4b5e-acbb-26af2d3eabd1
-
-
-
-## Table of Contents
-- [Next AI Draw.io ](#next-ai-drawio-)
-  - [Table of Contents](#table-of-contents)
-  - [Examples](#examples)
-  - [Features](#features)
-  - [MCP Server (Preview)](#mcp-server-preview)
-  - [Getting Started](#getting-started)
-    - [Try it Online](#try-it-online)
-    - [Desktop Application](#desktop-application)
-    - [Run with Docker (Recommended)](#run-with-docker-recommended)
-    - [Installation](#installation)
-  - [Deployment](#deployment)
-  - [Multi-Provider Support](#multi-provider-support)
-  - [How It Works](#how-it-works)
-  - [Project Structure](#project-structure)
-  - [Support \& Contact](#support--contact)
-  - [Star History](#star-history)
-
-## Examples
-
-Here are some example prompts and their generated diagrams:
-
-<div align="center">
-<table width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center">
-      <strong>Animated transformer connectors</strong><br />
-      <p><strong>Prompt:</strong> Give me a **animated connector** diagram of transformer's architecture.</p>
-      <img src="./public/animated_connectors.svg" alt="Transformer Architecture with Animated Connectors" width="480" />
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <strong>GCP architecture diagram</strong><br />
-      <p><strong>Prompt:</strong> Generate a GCP architecture diagram with **GCP icons**. In this diagram, users connect to a frontend hosted on an instance.</p>
-      <img src="./public/gcp_demo.svg" alt="GCP Architecture Diagram" width="480" />
-    </td>
-    <td width="50%" valign="top">
-      <strong>AWS architecture diagram</strong><br />
-      <p><strong>Prompt:</strong> Generate a AWS architecture diagram with **AWS icons**. In this diagram, users connect to a frontend hosted on an instance.</p>
-      <img src="./public/aws_demo.svg" alt="AWS Architecture Diagram" width="480" />
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <strong>Azure architecture diagram</strong><br />
-      <p><strong>Prompt:</strong> Generate a Azure architecture diagram with **Azure icons**. In this diagram, users connect to a frontend hosted on an instance.</p>
-      <img src="./public/azure_demo.svg" alt="Azure Architecture Diagram" width="480" />
-    </td>
-    <td width="50%" valign="top">
-      <strong>Cat sketch prompt</strong><br />
-      <p><strong>Prompt:</strong> Draw a cute cat for me.</p>
-      <img src="./public/cat_demo.svg" alt="Cat Drawing" width="240" />
-    </td>
-  </tr>
-</table>
-</div>
-
-## Features
-
--   **LLM-Powered Diagram Creation**: Leverage Large Language Models to create and manipulate draw.io diagrams directly through natural language commands
--   **Image-Based Diagram Replication**: Upload existing diagrams or images and have the AI replicate and enhance them automatically
--   **PDF & Text File Upload**: Upload PDF documents and text files to extract content and generate diagrams from existing documents
--   **AI Reasoning Display**: View the AI's thinking process for supported models (OpenAI o1/o3, Gemini, Claude, etc.)
--   **Diagram History**: Comprehensive version control that tracks all changes, allowing you to view and restore previous versions of your diagrams before the AI editing.
--   **Interactive Chat Interface**: Communicate with AI to refine your diagrams in real-time
--   **Cloud Architecture Diagram Support**: Specialized support for generating cloud architecture diagrams (AWS, GCP, Azure)
--   **Animated Connectors**: Create dynamic and animated connectors between diagram elements for better visualization
-
-## MCP Server (Preview)
-
-> **Preview Feature**: This feature is experimental and may not stable.
-
-Use Next AI Draw.io with AI agents like Claude Desktop, Cursor, and VS Code via MCP (Model Context Protocol).
-
-```json
-{
-  "mcpServers": {
-    "drawio": {
-      "command": "npx",
-      "args": ["@next-ai-drawio/mcp-server@latest"]
-    }
-  }
-}
-```
-
-### Claude Code CLI
-
-```bash
-claude mcp add drawio -- npx @next-ai-drawio/mcp-server@latest
-```
-
-Then ask Claude to create diagrams:
-> "Create a flowchart showing user authentication with login, MFA, and session management"
-
-The diagram appears in your browser in real-time!
-
-See the [MCP Server README](./packages/mcp-server/README.md) for VS Code, Cursor, and other client configurations.
-
-## Getting Started
-
-### Try it Online
-
-No installation needed! Try the app directly on our demo site:
-
-[![Live Demo](./public/live-demo-button.svg)](https://next-ai-drawio.jiang.jp/)
-
-> Note: Due to high traffic, the demo site currently uses minimax-m2. For best results, we recommend self-hosting with Claude Sonnet 4.5 or Claude Opus 4.5.
-
-> **Bring Your Own API Key**: You can use your own API key to bypass usage limits on the demo site. Click the Settings icon in the chat panel to configure your provider and API key. Your key is stored locally in your browser and is never stored on the server.
-
-### Desktop Application
-
-Download the native desktop app for your platform from the [Releases page](https://github.com/DayuanJiang/next-ai-draw-io/releases):
-
-| Platform | Download |
-|----------|----------|
-| macOS | `.dmg` (Intel & Apple Silicon) |
-| Windows | `.exe` installer (x64 & ARM64) |
-| Linux | `.AppImage` or `.deb` (x64 & ARM64) |
-
-**Features:**
-- **Secure API key storage**: Credentials encrypted using OS keychain
-- **Configuration presets**: Save and switch between AI providers via menu
-- **Native file dialogs**: Open/save `.drawio` files directly
-- **Offline capable**: Works without internet after first launch
-
-**Quick Setup:**
-1. Download and install for your platform
-2. Open the app → **Menu → Configuration → Manage Presets**
-3. Add your AI provider credentials
-4. Start creating diagrams!
-
-### Run with Docker (Recommended)
-
-If you just want to run it locally, the best way is to use Docker.
-
-First, install Docker if you haven't already: [Get Docker](https://docs.docker.com/get-docker/)
-
-Then run:
-
-```bash
-docker run -d -p 3000:3000 \
-  -e AI_PROVIDER=openai \
-  -e AI_MODEL=gpt-4o \
-  -e OPENAI_API_KEY=your_api_key \
-  ghcr.io/dayuanjiang/next-ai-draw-io:latest
-```
-
-Or use an env file:
-
-```bash
-cp env.example .env
-# Edit .env with your configuration
-docker run -d -p 3000:3000 --env-file .env ghcr.io/dayuanjiang/next-ai-draw-io:latest
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-Replace the environment variables with your preferred AI provider configuration. See [Multi-Provider Support](#multi-provider-support) for available options.
-
-> **Offline Deployment:** If `embed.diagrams.net` is blocked, see [Offline Deployment](./docs/offline-deployment.md) for configuration options.
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/DayuanJiang/next-ai-draw-io
-cd next-ai-draw-io
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Configure your AI provider:
-
-Create a `.env.local` file in the root directory:
-
-```bash
-cp env.example .env.local
-```
-
-Edit `.env.local` and configure your chosen provider:
-
--   Set `AI_PROVIDER` to your chosen provider (bedrock, openai, anthropic, google, azure, ollama, openrouter, deepseek, siliconflow)
--   Set `AI_MODEL` to the specific model you want to use
--   Add the required API keys for your provider
--   `TEMPERATURE`: Optional temperature setting (e.g., `0` for deterministic output). Leave unset for models that don't support it (e.g., reasoning models).
--   `ACCESS_CODE_LIST`: Optional access password(s), can be comma-separated for multiple passwords.
-
-> Warning: If you do not set `ACCESS_CODE_LIST`, anyone can access your deployed site directly, which may lead to rapid depletion of your token. It is recommended to set this option.
-
-See the [Provider Configuration Guide](./docs/ai-providers.md) for detailed setup instructions for each provider.
-
-4. Run the development server:
-
-```bash
-npm run dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
-
-## Deployment
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-Or you can deploy by this button.
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDayuanJiang%2Fnext-ai-draw-io)
-
-Be sure to **set the environment variables** in the Vercel dashboard as you did in your local `.env.local` file.
-
-
-## Multi-Provider Support
-
--   AWS Bedrock (default)
--   OpenAI
--   Anthropic
--   Google AI
--   Azure OpenAI
--   Ollama
--   OpenRouter
--   DeepSeek
--   SiliconFlow
-
-All providers except AWS Bedrock and OpenRouter support custom endpoints.
-
-📖 **[Detailed Provider Configuration Guide](./docs/ai-providers.md)** - See setup instructions for each provider.
-
-**Model Requirements**: This task requires strong model capabilities for generating long-form text with strict formatting constraints (draw.io XML). Recommended models include Claude Sonnet 4.5, GPT-5.1, Gemini 3 Pro, and DeepSeek V3.2/R1.
-
-Note that `claude` series has trained on draw.io diagrams with cloud architecture logos like AWS, Azure, GCP. So if you want to create cloud architecture diagrams, this is the best choice.
-
-
-## How It Works
-
-The application uses the following technologies:
-
--   **Next.js**: For the frontend framework and routing
--   **Vercel AI SDK** (`ai` + `@ai-sdk/*`): For streaming AI responses and multi-provider support
--   **react-drawio**: For diagram representation and manipulation
-
-Diagrams are represented as XML that can be rendered in draw.io. The AI processes your commands and generates or modifies this XML accordingly.
-
-## Project Structure
-
-```
-app/                  # Next.js App Router
-  api/chat/           # Chat API endpoint with AI tools
-  page.tsx            # Main page with DrawIO embed
-components/           # React components
-  chat-panel.tsx      # Chat interface with diagram control
-  chat-input.tsx      # User input component with file upload
-  history-dialog.tsx  # Diagram version history viewer
-  ui/                 # UI components (buttons, cards, etc.)
-contexts/             # React context providers
-  diagram-context.tsx # Global diagram state management
-lib/                  # Utility functions and helpers
-  ai-providers.ts     # Multi-provider AI configuration
-  utils.ts            # XML processing and conversion utilities
-public/               # Static assets including example images
-```
-
-## Support & Contact
-
-If you find this project useful, please consider [sponsoring](https://github.com/sponsors/DayuanJiang) to help me host the live demo site!
-
-For support or inquiries, please open an issue on the GitHub repository or contact the maintainer at:
-
--   Email: me[at]jiang.jp
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=DayuanJiang/next-ai-draw-io&type=date&legend=top-left)](https://www.star-history.com/#DayuanJiang/next-ai-draw-io&type=date&legend=top-left)
+> 本项目严格遵循原项目的 **Apache License 2.0** 开源协议，保留原作者署名、版权声明及许可证信息。
+> 向原作者 **DayuanJiang** 及其在 AI + draw.io 领域的优秀工作致以诚挚敬意。
 
 ---
+
+## 项目定位
+
+Next AI Draw NAS 旨在解决以下场景中的实际需求：
+
+* 企业或团队 **无法使用公有云 Demo**
+* 对 **API Key、模型配置、数据安全** 有更高要求
+* 希望在 **NAS / 私有服务器 / 内网环境** 中长期稳定运行
+* 需要在原有 AI 绘图能力上进行二次集成或深度定制
+
+该版本更偏向 **工程化、部署友好、可运维** 的使用场景。
+
+---
+
+## 在原项目基础上的增强点
+
+在完整保留原项目以下能力的前提下：
+
+* 自然语言生成 draw.io 图表
+* 云架构图（AWS / GCP / Azure）
+* AI 对话式图表编辑
+* 多模型 / 多 Provider 支持
+
+**Next AI Draw NAS 重点新增或强化了：**
+
+### 私有化与部署能力
+
+* 更适合 **Docker / NAS / 自托管服务器** 的部署方式
+* 针对内网或受限网络环境的优化
+* 支持长期运行与资源可控的部署模型
+
+### 配置与运维友好性
+![img.png](img.png)
+* 更清晰的环境变量与配置管理
+* 模型、Provider 的集中化配置
+* 便于备份、迁移与升级
+
+### 面向企业与团队使用
+
+* 避免公有 Demo 的流量与使用限制
+* 数据仅在本地或私有环境中处理
+* 适合作为内部制图与架构设计工具使用
+
+---
+
+## 与原项目的关系说明（重要）
+
+* **本项目不是对原项目的替代**
+* **本项目不会移除、覆盖或否认原项目的贡献**
+* **所有核心设计与创新均来源于原始开源项目 Next AI Draw.io**
+
+Next AI Draw NAS 的目标是：
+
+> 在尊重原作者成果的前提下，为有私有化需求的用户提供一个更易落地的选择。
+
+---
+
+## 适用人群
+
+* 使用 NAS / 家庭服务器 / 私有云的技术用户
+* 对 AI 制图有需求但 **不方便使用公有服务** 的团队
+* 架构师、开发者、技术负责人
+* 希望在原项目基础上进行二次定制的用户
+
+---
+
+## 许可证与致谢
+
+* 原项目：**Next AI Draw.io**
+* 原作者：**DayuanJiang**
+* 原许可证：**Apache License 2.0**
+
+Next AI Draw NAS 完全遵循原许可证条款发布，
+并对原项目作者及其社区贡献表示由衷感谢。
+
+
+## 部署方式
+
+### docker-compose
+
+```docker-compose 
+services:
+  next-ai-draw-nas:
+    image: ghcr.io/lxchinesszz/next-ai-draw-nas:latest
+    container_name: next-ai-draw-nas
+    restart: unless-stopped
+    ports:
+      - "16666:3000"
+    environment:
+      AI_PROVIDER: openai
+      AI_MODEL: qwen3-max
+      // 注意换成你自己的key
+      OPENAI_API_KEY: sk-7321a270e37131807xxxxxd2dfa02d00d0c31876
+      OPENAI_BASE_URL: https://api.qnaigc.com/v1
+      ACCESS_CODE_LIST: admin123,admin456
+```
+
+### 命令
+
+```bash 
+docker run -d -p 3000:3000 \
+  -e AI_PROVIDER=openai \
+  -e AI_MODEL=kimi-k2-turbo-preview \
+  -e ACCESS_CODE_LIST=123456,123213 \
+  -e OPENAI_API_KEY=sk-rWCDKoOJxxxxxxxBOGZciLkXwOhmT \
+  -e OPENAI_BASE_URL=https://api.moonshot.cn/v1 \
+  ghcr.io/lxchinesszz/next-ai-draw-nas:latest
+```
