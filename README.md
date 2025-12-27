@@ -1,4 +1,15 @@
 
+## 使用方法
+
+https://s.qiniu.com/7nQfMj
+
+如果没有 token 使用我这个邀请码，可以免费领取 1000w token，可以使用多种模型。
+![img_1.png](img_1.png)
+
+配置方法参考
+
+![img_2.png](img_2.png)
+
 ## Next AI Draw NAS
 
 **Next AI Draw NAS** 是基于开源项目 **[Next AI Draw.io](https://github.com/DayuanJiang/next-ai-draw-io)** 的二次开发版本（Fork / Extended Edition），在完整继承原项目设计理念与核心能力的基础上，重点面向 **私有化部署、内网环境和定制化场景** 进行了增强与优化。
