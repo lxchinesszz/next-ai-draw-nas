@@ -15,34 +15,55 @@ Next AI Draw NAS 旨在解决以下场景中的实际需求：
 * 企业或团队 **无法使用公有云 Demo**
 * 对 **API Key、模型配置、数据安全** 有更高要求
 * 希望在 **NAS / 私有服务器 / 内网环境** 中长期稳定运行
-* 需要在原有 AI 绘图能力上进行二次集成或深度定制
 
-该版本更偏向 **工程化、部署友好、可运维** 的使用场景。
-
----
-
-## 在原项目基础上的增强点
-
-在完整保留原项目以下能力的前提下：
-
-* 自然语言生成 draw.io 图表
-* 云架构图（AWS / GCP / Azure）
-* AI 对话式图表编辑
-* 多模型 / 多 Provider 支持
-
-**Next AI Draw NAS 重点新增或强化了：**
 
 ### 私有化与部署能力
 
-* 更适合 **Docker / NAS / 自托管服务器** 的部署方式
-* 针对内网或受限网络环境的优化
-* 支持长期运行与资源可控的部署模型
-
-### 配置与运维友好性
 ![img.png](img.png)
-* 更清晰的环境变量与配置管理
-* 模型、Provider 的集中化配置
-* 便于备份、迁移与升级
+
+#### 配置与运维友好性
+
+1. **授权与访问控制**
+   新增授权登录能力，更适合私有化部署场景，支持在 **Docker / NAS / 自托管服务器** 等环境中安全运行。
+
+2. **模型配置导入与导出**
+   支持模型与 Provider 配置的一键导入与导出，便于配置复用、备份、迁移及版本升级。
+
+3. **消息发送方式管理**
+   提供消息发送方式配置，支持「点击发送」与「回车发送」两种模式，满足不同使用习惯与场景需求。
+
+## 部署方式
+
+### docker-compose
+
+```docker-compose 
+services:
+  next-ai-draw-nas:
+    image: ghcr.io/lxchinesszz/next-ai-draw-nas:latest
+    container_name: next-ai-draw-nas
+    restart: unless-stopped
+    ports:
+      - "16666:3000"
+    environment:
+      AI_PROVIDER: openai
+      AI_MODEL: qwen3-max
+      // 注意换成你自己的key
+      OPENAI_API_KEY: sk-7321a270e37131807xxxxxd2dfa02d00d0c31876
+      OPENAI_BASE_URL: https://api.qnaigc.com/v1
+      ACCESS_CODE_LIST: admin123,admin456
+```
+
+### 命令
+
+```bash 
+docker run -d -p 3000:3000 \
+  -e AI_PROVIDER=openai \
+  -e AI_MODEL=kimi-k2-turbo-preview \
+  -e ACCESS_CODE_LIST=123456,123213 \
+  -e OPENAI_API_KEY=sk-rWCDKoOJxxxxxxxBOGZciLkXwOhmT \
+  -e OPENAI_BASE_URL=https://api.moonshot.cn/v1 \
+  ghcr.io/lxchinesszz/next-ai-draw-nas:latest
+```
 
 ### 面向企业与团队使用
 
@@ -83,35 +104,3 @@ Next AI Draw NAS 完全遵循原许可证条款发布，
 并对原项目作者及其社区贡献表示由衷感谢。
 
 
-## 部署方式
-
-### docker-compose
-
-```docker-compose 
-services:
-  next-ai-draw-nas:
-    image: ghcr.io/lxchinesszz/next-ai-draw-nas:latest
-    container_name: next-ai-draw-nas
-    restart: unless-stopped
-    ports:
-      - "16666:3000"
-    environment:
-      AI_PROVIDER: openai
-      AI_MODEL: qwen3-max
-      // 注意换成你自己的key
-      OPENAI_API_KEY: sk-7321a270e37131807xxxxxd2dfa02d00d0c31876
-      OPENAI_BASE_URL: https://api.qnaigc.com/v1
-      ACCESS_CODE_LIST: admin123,admin456
-```
-
-### 命令
-
-```bash 
-docker run -d -p 3000:3000 \
-  -e AI_PROVIDER=openai \
-  -e AI_MODEL=kimi-k2-turbo-preview \
-  -e ACCESS_CODE_LIST=123456,123213 \
-  -e OPENAI_API_KEY=sk-rWCDKoOJxxxxxxxBOGZciLkXwOhmT \
-  -e OPENAI_BASE_URL=https://api.moonshot.cn/v1 \
-  ghcr.io/lxchinesszz/next-ai-draw-nas:latest
-```
